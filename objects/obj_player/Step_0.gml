@@ -75,3 +75,6 @@ if (devMode)	{
 		}
 	}
 }
+
+
+show_message("");
