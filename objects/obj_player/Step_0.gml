@@ -77,6 +77,8 @@ if (devMode)	{
 	}
 }
 
+
+
 #region State Machine
 switch(state)	{
 	#region Idle / Default
