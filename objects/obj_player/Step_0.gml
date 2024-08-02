@@ -128,9 +128,17 @@ switch(state)	{
 	case "roll":
 	//Troca de sprites
 	
+	
 	//Rolando
 	velh = lengthdir_x(roll_vel, roll_dir);
 	velv = lengthdir_y(roll_vel, roll_dir);
+	roll_count++;
+	
+	if (roll_count >= roll_time)	{
+		//Saindo do estado
+		roll_count = 0;
+		state = "idle";
+	}
 	break;
 	#endregion
 }
