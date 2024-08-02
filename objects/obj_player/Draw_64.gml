@@ -1,4 +1,6 @@
 /// @description Alguns Debugs
 if (devMode)	{
-	draw_text(20, 100, gun.image_angle);
+	if (gun)	{
+		draw_text(20, 100, gun.ammo);
+	}
 }
