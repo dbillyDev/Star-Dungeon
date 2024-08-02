@@ -1,11 +1,12 @@
 ///@desc State Machine
 //Inputs
-var right, left, down, up;
+var right, left, down, up, roll;
 
 right	= keyboard_check(ord("D"))	|| gamepad_axis_value(gp_id, gp_axislh) > gp_deadzone;
 left	= keyboard_check(ord("A"))	|| gamepad_axis_value(gp_id, gp_axislh) < -gp_deadzone;
 down	= keyboard_check(ord("S"))	|| gamepad_axis_value(gp_id, gp_axislv) > gp_deadzone;
 up		= keyboard_check(ord("W"))	|| gamepad_axis_value(gp_id, gp_axislv) < -gp_deadzone;
+roll	= keyboard_check(ord("L"))	|| gamepad_button_check_pressed(gp_id, gp_shoulderlb);
 
 //Movimentação
 var _velh = (right - left)	* max_vel;
@@ -76,5 +77,61 @@ if (devMode)	{
 	}
 }
 
-
-show_message("");
+#region State Machine
+switch(state)	{
+	#region Idle / Default
+	case "idle":
+	//Troca de sprites
+	
+	
+	//Troca de estados
+	//Correndo
+	if (right || left || down || up)	{
+		//Troca de estados
+		state = "run";
+	}
+	
+	//Roll
+	if (roll)	{
+		//Definindo a direção
+		roll_dir = point_direction(0, 0, (right - left), (down - up));
+		
+		//Troca de estado
+		state = "roll"
+	}	
+	break;
+	#endregion
+	
+	#region Run
+	case "run":
+	//Troca de sprite
+	
+	
+	//Troca de estados
+	//Parado
+	if (!right && !left && !down && !up)	{
+		state = "idle";
+	}
+	
+	//Roll
+	if (roll)	{
+		//Definindo a direção
+		roll_dir = point_direction(0, 0, (right - left), (down - up));
+		
+		//Troca de estado
+		state = "roll"
+	}
+	break;
+	#endregion
+	
+	#region roll
+	case "roll":
+	//Troca de sprites
+	
+	//Rolando
+	velh = lengthdir_x(roll_vel, roll_dir);
+	velv = lengthdir_y(roll_vel, roll_dir);
+	break;
+	#endregion
+}
+#endregion
